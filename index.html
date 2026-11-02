@@ -43,6 +43,8 @@ header {
 .logo {
   font:700 29px 'Amiri';
   letter-spacing:2px;
+  color:white;
+  text-decoration:none;
 }
 
 .logo span {color:var(--gold)}
@@ -318,6 +320,20 @@ footer small {color:#c7bca9}
   overflow:auto;
 }
 
+.modal-box h2 {
+  font:700 30px 'Amiri';
+  margin:15px 0;
+}
+
+.modal-image {
+  display:block;
+  width:100%;
+  max-height:300px;
+  object-fit:cover;
+  border-radius:10px;
+  margin:15px 0;
+}
+
 .close {
   float:left;
   padding:4px 13px;
@@ -409,8 +425,8 @@ footer small {color:#c7bca9}
 
     <div class="featured">
       <img
-        src="https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=900&q=85"
-        alt="عمارة حجرية تاريخية">
+        src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Aleppo_Citadel_2017.jpg"
+        alt="قلعة حلب التاريخية">
 
       <div class="feature-text">
         <small>حلب · المدينة القديمة</small>
@@ -423,14 +439,14 @@ footer small {color:#c7bca9}
           'قلعة',
           'أسوار حجرية وأبراج ومداخل تاريخية',
           'موقع تاريخي محصّن في مدينة حلب',
-          'UNESCO World Heritage Centre'
+          'UNESCO World Heritage Centre',
+          'https://upload.wikimedia.org/wikipedia/commons/e/e6/Aleppo_Citadel_2017.jpg'
         )">
           اكتشف المبنى
         </button>
       </div>
     </div>
   </section>
-
   <section>
     <div class="section-title">
       <h2>نماذج من الأرشيف</h2>
@@ -441,6 +457,7 @@ footer small {color:#c7bca9}
       <div class="status-message">جارٍ تحميل الأرشيف...</div>
     </div>
   </section>
+
   <section class="cta">
     <h2>ساهم في حفظ ذاكرتنا المعمارية</h2>
     <p>هل تعرف مبنى تراثياً يستحق التوثيق؟ شاركنا معلوماتك.</p>
@@ -470,8 +487,9 @@ footer small {color:#c7bca9}
 
 <div class="modal" id="detailsModal">
   <div class="modal-box">
-    <button class="close" onclick="closeDetails()">×</button>
+    <button class="close" onclick="closeDetails()" aria-label="إغلاق">×</button>
     <h2 id="detailName"></h2>
+    <img id="detailImage" class="modal-image" alt="" hidden>
     <p id="detailInfo"></p>
     <small id="detailSource"></small>
   </div>
@@ -479,26 +497,51 @@ footer small {color:#c7bca9}
 
 <script>
 
-// رابط Google Apps Script
 const ATHAR_API =
 "https://script.google.com/macros/s/AKfycbzcdFYpWNOIX6vkedckrb0gw-JM1CMO8wwylYOHqMC1cJARWSFZaRWVf1fYsBRi-npw/exec";
 
 let allBuildings = [];
 let activeCategory = "";
 
-// عرض تفاصيل المبنى
-function openDetails(name, city, type, elements, description, source) {
+// تنظيف أسماء الحقول من المسافات الزائدة
+function normalizeBuilding(building) {
+  const normalized = {};
 
-  document.getElementById('detailName').textContent = name;
+  Object.keys(building || {}).forEach(key => {
+    normalized[String(key).trim()] = building[key];
+  });
+
+  return normalized;
+}
+
+// عرض تفاصيل المبنى
+function openDetails(name, city, type, elements, description, source, imageURL) {
+
+  document.getElementById('detailName').textContent =
+    name || 'مبنى تراثي';
 
   document.getElementById('detailInfo').textContent =
-    'المدينة: ' + city +
-    ' | النوع: ' + type +
-    ' | العناصر المعمارية: ' + elements +
-    (description ? ' | الوصف: ' + description : '');
+    'المدينة: ' + (city || 'غير محددة') +
+    ' | النوع: ' + (type || 'غير محدد') +
+    ' | العناصر المعمارية: ' + (elements || 'غير محددة') +
+    ' | الوصف: ' + (description || 'لا يوجد وصف');
 
   document.getElementById('detailSource').textContent =
     source ? 'المصدر: ' + source : '';
+
+  const image = document.getElementById('detailImage');
+
+  image.hidden = true;
+  image.removeAttribute('src');
+  image.alt = name || 'صورة مبنى تراثي';
+  image.onerror = function() {
+    this.hidden = true;
+  };
+
+  if (imageURL && /^https?:\/\//i.test(imageURL)) {
+    image.src = imageURL;
+    image.hidden = false;
+  }
 
   document.getElementById('detailsModal').classList.add('show');
 }
@@ -508,14 +551,29 @@ function closeDetails() {
   document.getElementById('detailsModal').classList.remove('show');
 }
 
+// إغلاق النافذة عند الضغط خارجها
+document.getElementById('detailsModal').addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeDetails();
+  }
+});
+
+// إغلاق النافذة بزر Escape
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeDetails();
+  }
+});
+
 // إنشاء بطاقة مبنى
-function createBuildingCard(building) {
+function createBuildingCard(rawBuilding) {
+
+  const building = normalizeBuilding(rawBuilding);
 
   const card = document.createElement('article');
   card.className = 'card';
 
   const type = String(building['Building Type'] || '').trim();
-
   card.dataset.type = type;
 
   const imageURL = String(building['Image URL'] || '').trim();
@@ -539,13 +597,12 @@ function createBuildingCard(building) {
 
   const location = document.createElement('small');
   location.textContent =
-    (building['City'] || '') +
+    (building['City'] || 'مدينة غير محددة') +
     (building['Neighborhood'] ? ' · ' + building['Neighborhood'] : '');
 
   const title = document.createElement('h3');
   title.textContent = building['Building Name'] || 'مبنى تراثي';
-
-  const description = document.createElement('p');
+const description = document.createElement('p');
   description.textContent =
     building['Description'] || 'مبنى موثّق ضمن أرشيف أثَر.';
 
@@ -561,7 +618,8 @@ function createBuildingCard(building) {
       type,
       building['Architectural Elements'] || '',
       building['Description'] || '',
-      building['Source'] || ''
+      building['Source'] || '',
+      imageURL
     );
 
   });
@@ -593,6 +651,7 @@ function renderBuildings() {
     ].join(' ').toLowerCase();
 
     const matchesSearch = searchableText.includes(searchValue);
+
     const matchesCategory =
       !activeCategory ||
       String(building['Building Type'] || '').trim() === activeCategory;
@@ -642,10 +701,12 @@ async function loadApprovedBuildings() {
       throw new Error('صيغة البيانات غير صحيحة');
     }
 
-    allBuildings = buildings.filter(building =>
-      String(building['Verification Status'] || '')
-        .trim().toLowerCase() === 'approved'
-    );
+    allBuildings = buildings
+      .map(normalizeBuilding)
+      .filter(building =>
+        String(building['Verification Status'] || '')
+          .trim().toLowerCase() === 'approved'
+      );
 
     renderBuildings();
 
@@ -670,10 +731,8 @@ async function loadApprovedBuildings() {
 
 // البحث
 document.getElementById('searchForm').addEventListener('submit', function(e) {
-
   e.preventDefault();
   renderBuildings();
-
 });
 
 // التصنيفات
