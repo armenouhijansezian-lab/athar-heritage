@@ -1,0 +1,278 @@
+[02/11/2026 10:57 PM] Aya🤍: <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أثَر | ATHAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5efe5;
+  --paper:#e9dece;
+  --dark:#252b24;
+  --green:#354638;
+  --gold:#b69a70;
+  --text:#292a25;
+  --muted:#777064;
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Cairo',sans-serif;
+}
+header {
+  background:var(--dark);color:white;padding:15px 7%;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+}
+.logo {font:700 29px 'Amiri';letter-spacing:2px}
+.logo span {color:var(--gold)}
+nav {display:flex;gap:25px;font-size:14px}
+nav a {color:#eee4d6;text-decoration:none}
+nav a:hover {color:var(--gold)}
+.hero {
+  min-height:490px;padding:80px 9%;display:flex;align-items:center;
+  color:#fff;background:
+  linear-gradient(90deg,#252b24 0%,#252b24ed 45%,#252b2480 100%),
+  url('https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+.hero-content {max-width:600px}
+.eyebrow {color:#d3b990;font-size:12px;letter-spacing:3px}
+.hero h1 {font:700 100px/1 'Amiri';margin:15px 0}
+.hero h2 {font-size:24px;margin:0}
+.hero p {color:#e2d8c9;line-height:2;font-size:15px}
+.search {
+  display:flex;background:#fff;border-radius:40px;
+  padding:5px;margin-top:25px;max-width:470px;
+}
+.search input {
+  flex:1;min-width:0;border:0;outline:0;
+  padding:12px 17px;font:inherit;background:transparent;
+}
+button,.btn {
+  border:0;cursor:pointer;font:inherit;
+  background:var(--green);color:white;
+  padding:11px 22px;border-radius:30px;
+  text-decoration:none;display:inline-block;
+}
+button:hover,.btn:hover {background:#52644e}
+.container {max-width:1100px;margin:auto;padding:0 22px}
+.stats {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  text-align:center;padding:30px 0;border-bottom:1px solid #d5c7b4;
+}
+.stats div {border-left:1px solid #d5c7b4}
+.stats div:last-child {border:0}
+.stats strong {display:block;font-size:18px}
+.stats small {color:var(--muted)}
+section {padding:48px 0}
+.section-title {
+  display:flex;justify-content:space-between;
+  align-items:end;margin-bottom:25px;
+}
+.section-title h2 {font:700 35px 'Amiri';margin:0}
+.section-title p {color:var(--muted);font-size:13px}
+.categories {
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;
+}
+.category {
+  background:var(--paper);border:1px solid #d4c4ae;
+  border-radius:10px;padding:20px 8px;text-align:center;
+  color:var(--dark);font-weight:600;
+}
+.category span {display:block;font-size:28px;margin-bottom:8px}
+.featured {
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--paper);border-radius:13px;overflow:hidden;
+}
+.featured img {width:100%;height:100%;min-height:280px;object-fit:cover}
+.feature-text {padding:35px;align-self:center}
+.feature-text h3 {font:700 36px 'Amiri';margin:8px 0}
+.feature-text p {line-height:2;color:#62594d}
+.cards {
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.card {
+  background:#eee5d8;border:1px solid #d7c9b6;
+  border-radius:12px;overflow:hidden;
+}
+.card img {width:100%;height:175px;object-fit:cover}
+.card-content {padding:17px}
+.card-content small {color:var(--muted)}
+.card-content h3 {font:700 25px 'Amiri';margin:8px 0}
+.card-content p {font-size:13px;line-height:1.8;color:#62594d}
+.card[hidden] {display:none}
+.cta {text-align:center;padding:40px 0 65px}
+.cta h2 {font:700 36px 'Amiri'}
+.cta p {color:var(--muted)}
+footer {
+  background:var(--dark);color:#eee4d6;padding:30px 7%;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:15px;
+[02/11/2026 10:57 PM] Aya🤍: }
+footer small {color:#c7bca9}
+.modal {
+  display:none;position:fixed;inset:0;background:#0009;
+  z-index:20;align-items:center;justify-content:center;padding:20px;
+}
+.modal.show {display:flex}
+.modal-box {
+  background:var(--bg);padding:28px;border-radius:12px;
+  max-width:500px;width:100%;line-height:2;
+}
+.close {float:left;padding:4px 13px}
+@media(max-width:700px) {
+  header {padding:13px 5%}
+  nav {gap:12px;font-size:11px}
+  .hero {padding:60px 25px}
+  .hero h1 {font-size:75px}
+  .stats {grid-template-columns:1fr}
+  .stats div {border:0;border-bottom:1px solid #d5c7b4;padding:12px}
+  .categories {grid-template-columns:repeat(2,1fr)}
+  .featured,.cards {grid-template-columns:1fr}
+  .featured img {height:220px}
+  .section-title {display:block}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">أثَر <span>| ATHAR</span></a>
+  <nav>
+    <a href="#">الرئيسية</a>
+    <a href="#explore">استكشف</a>
+    <a href="#about">عن المشروع</a>
+  </nav>
+</header>
+
+<main>
+<div class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">SYRIAN ARCHITECTURAL HERITAGE</div>
+    <h1>أثَر</h1>
+    <h2>أرشيف رقمي للعمارة التراثية السورية</h2>
+    <p>لأنّ العمارة ذاكرة المكان، نوثّق تفاصيلها ونحفظ ملامحها للأجيال القادمة.</p>
+    <form class="search" id="searchForm">
+      <input id="searchInput" placeholder="ابحث عن مبنى أو مدينة...">
+      <button type="submit">بحث</button>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stats" id="about">
+    <div><strong>ذاكرة المكان</strong><small>حفظ التراث المعماري</small></div>
+    <div><strong>توثيق ومعرفة</strong><small>اكتشاف التفاصيل المعمارية</small></div>
+    <div><strong>مشاركة مجتمعية</strong><small>كل مساهمة تصنع أثراً</small></div>
+  </div>
+
+  <section id="explore">
+    <div class="section-title">
+      <h2>استكشف الأرشيف</h2>
+      <p>تعرّف على تنوّع العمارة السورية</p>
+    </div>
+    <div class="categories">
+      <button class="category" data-type="مسجد"><span>☾</span>مساجد</button>
+      <button class="category" data-type="منزل"><span>⌂</span>منازل تراثية</button>
+      <button class="category" data-type="قلعة"><span>♜</span>قلاع وحصون</button>
+      <button class="category" data-type="سوق"><span>⌑</span>أسواق وخانات</button>
+      <button class="category" data-type="عام"><span>▤</span>مبانٍ عامة</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>مبنى مميز</h2>
+      <p>من ذاكرة حلب</p>
+    </div>
+    <div class="featured">
+      <img src="https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=900&q=85" alt="عمارة حجرية تاريخية">
+      <div class="feature-text">
+        <small>حلب · المدينة القديمة</small>
+        <h3>قلعة حلب</h3>
+        <p>تُعد قلعة حلب من أبرز المعالم التاريخية والمعمارية في سوريا، وتحمل بين أسوارها طبقات متعددة من تاريخ المدينة.</p>
+        <button onclick="openDetails('قلعة حلب','حلب','قلعة','أسوار حجرية وأبراج ومداخل تاريخية.')">اكتشف المبنى</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>نماذج من الأرشيف</h2>
+      <p id="resultCount">3 بطاقات تجريبية</p>
+    </div>
+    <div class="cards" id="cards">
+      <article class="card" data-type="قلعة">
+        <img src="https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=700&q=80" alt="قلعة">
+        <div class="card-content"><small>حلب · المدينة القديمة</small><h3>قلعة حلب</h3><p>نموذج تجريبي لبطاقة مبنى تاريخي.</p><button onclick="openDetails('قلعة حلب','حلب','قلعة','أسوار حجرية وأبراج ومداخل تاريخية.')">التفاصيل</button></div>
+      </article>
+      <article class="card" data-type="منزل">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=700&q=80" alt="منزل">
+        <div class="card-content"><small>دمشق · نموذج توضيحي</small><h3>منزل تراثي</h3><p>بطاقة نموذجية لفئة المنازل التراثية.</p></div>
+[02/11/2026 10:57 PM] Aya🤍: </article>
+      <article class="card" data-type="مسجد">
+        <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=700&q=80" alt="مسجد">
+        <div class="card-content"><small>سوريا · نموذج توضيحي</small><h3>مسجد تاريخي</h3><p>بطاقة نموذجية لفئة المساجد التاريخية.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>ساهم في حفظ ذاكرتنا المعمارية</h2>
+    <p>هل تعرف مبنى تراثياً يستحق التوثيق؟ شاركنا معلوماتك.</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSeDgOOrH0cgl3HI0PMKeFL4RczS_3YXo16klugZ8grTADmkOw/viewform?usp=header">＋ أضف مبنى إلى الأرشيف</a>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div><div class="logo">أثَر | ATHAR</div><small>أرشيف رقمي للعمارة التراثية السورية</small></div>
+  <div><b>التوثيق مسؤولية مشتركة</b><br><small>تخضع المعلومات للمراجعة قبل اعتمادها.</small></div>
+</footer>
+
+<div class="modal" id="detailsModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeDetails()">×</button>
+    <h2 id="detailName"></h2>
+    <p id="detailInfo"></p>
+    <small>معلومات تجريبية، ويجب مراجعتها وتوثيق مصادرها قبل اعتمادها.</small>
+  </div>
+</div>
+
+<script>
+function openDetails(name,city,type,elements) {
+  document.getElementById('detailName').textContent=name;
+  document.getElementById('detailInfo').textContent=
+    'المدينة: '+city+' | النوع: '+type+' | العناصر المعمارية: '+elements;
+  document.getElementById('detailsModal').classList.add('show');
+}
+function closeDetails() {
+  document.getElementById('detailsModal').classList.remove('show');
+}
+document.getElementById('searchForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  let count=0;
+  document.querySelectorAll('.card').forEach(card=>{
+    const match=card.innerText.toLowerCase().includes(q);
+    card.hidden=!match;
+    if(match) count++;
+  });
+  document.getElementById('resultCount').textContent='عدد النتائج: '+count;
+});
+document.querySelectorAll('.category').forEach(button=>{
+  button.addEventListener('click',()=>{
+    const type=button.dataset.type;
+    let count=0;
+    document.querySelectorAll('.card').forEach(card=>{
+      const match=card.dataset.type===type;
+      card.hidden=!match;
+      if(match) count++;
+    });
+    document.getElementById('resultCount').textContent='النتائج: '+count;
+  });
+});
+</script>
+</body>
+</html>
